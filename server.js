@@ -4,8 +4,10 @@ const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
 const PORT = 8000
 
+require('dotenv').config()
+
 let db,
-    dbConnectionStr = 'mongodb+srv://daviddarbydev:ayXEwwb2jNbY8k01@cluster0.z164r.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+    dbConnectionStr = process.env.DB_STRING,
     dbName = 'plugins'
 
 
@@ -113,6 +115,7 @@ app.put('/addOneLike', (request, response) => {
 })
 
 app.delete('/deletePlugin', (request, response) => {
+    console.log(request)
     db.collection('best free plugins').deleteOne({ name: request.body.nameS })
         .then(result => {
             console.log('Plugin Deleted')
